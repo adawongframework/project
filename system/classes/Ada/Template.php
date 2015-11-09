@@ -7,7 +7,7 @@
 * {template head.tpl/}				-> <?php include "head.tpl";?>
 *
 *+----------选择结构--------------编译之后----------------------------------------------
-* {if $count == 1}					-> <?php if ($this->variables['count'] > 1) {?>
+* {if $count == 1}					-> <?php if ($this->variables['count'] == 1) {?>
 *	//do1							->   //do1
 * {elseif $count > 1}				-> <?php }else if ($this->variables['count'] > 1) {?> 
 *	//do2							->	//do2  
