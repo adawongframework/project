@@ -1,6 +1,6 @@
 <?php
 return Array(
-	'baseurl' => 'http://www.adawong.cn',
+	'baseurl' => 'http://localhost/project/',
 	'indexfile' => ''
 );
 ?>

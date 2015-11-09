@@ -1,7 +1,7 @@
 <?php
 class Controller_Welcome extends Controller {
 
-	public function action_archive() {
+	public function action_index() {
 		echo 'hello world';
 	}
 }

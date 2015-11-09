@@ -1,4 +1,7 @@
 <?php
+/**
+* 模板编译处理类
+*/
 class Ada_Template_Compile extends Ada_Template{
 	
 	/**
@@ -14,7 +17,7 @@ class Ada_Template_Compile extends Ada_Template{
 	protected static $close = '}';
 
 	/**
-	* 模板内容
+	* 编译的内容
 	* @var Stirng
 	*/
 	protected static $contents = '';
@@ -30,7 +33,7 @@ class Ada_Template_Compile extends Ada_Template{
 		self::$close = preg_quote(self::$delimiter[1]);
 		self::$contents = file_get_contents($tplfile);
 		//清除phpcode
-		self::$contents = preg_replace("/\<\?php.*\?\>(\r\n)*/", '', self::$contents);
+		self::$contents = preg_replace("/\<\?php.*\?\>(\r\n)*/i", '', self::$contents);
 		Ada_Template_Compile_Include::incfile(self::$start, self::$close);
 		Ada_Template_Compile_Syntax::compile();
 		Ada_Template_Compile_Include::compile();
