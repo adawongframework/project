@@ -1,2 +1,2 @@
-{$name/}
-{template head.tpl/}
+<?php echo time();?>
+{Uri::site("welcome-site.html")/}

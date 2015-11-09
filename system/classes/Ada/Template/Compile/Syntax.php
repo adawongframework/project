@@ -30,14 +30,14 @@ class Ada_Template_Compile_Syntax extends Ada_Template_Compile {
 	
 	/**
 	* 匹配模式
-	*+-----------------------
+	*+--------
 	* @param String $start
 	* @param String $close
 	* return Array
 	*/
 	public static function pattern($start, $close) {
 		return array(
-			//"/\<\?php.*\?\>/is", //模版文件中不允许直接使用phpcode
+			sprintf('/%s[\s]*([a-zA-z][\w]*)::(.*)[\s]*\/[\s]*%s/', $start, $close), //静态方法调用
 			sprintf('/%s[\s]*\$([a-zA-z][\w]*)(.*)[\s]*\/[\s]*%s/', $start, $close), //打印变量
 			sprintf('/%s[\s]*([a-zA-z][\w]*)(\(.*\))[\s]*\/[\s]*%s/', $start, $close), //调用函数
 			'/\<\?php([\s]echo[\s])([a-zA-z][\w]*\([\s]*)\$([a-zA-z][\w]*)(.*)[\s]*(\));\?\>/', //函数调用变量
@@ -47,13 +47,13 @@ class Ada_Template_Compile_Syntax extends Ada_Template_Compile {
 	
 	/**
 	* 匹配内容
-	*+-----------------------
+	*+--------
 	* @param Void
 	* @return Array
 	*/
 	public static function replace() {
 		return array(
-			//'',
+			'<?php echo \\1::\\2;?>',
 			'<?php echo \$this->variables["\\1"]\\2;?>',
 			'<?php echo \\1\\2;?>',
 			'<?php\\1\\2\$this->variables["\\3"]\\4\\5;?>',
