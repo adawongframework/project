@@ -1,0 +1,3 @@
+<?php if (!$this instanceOf Template) die('Access Failed');?>
+<?php echo $this->variables["name"];?>
+<?php echo $this->variables["name"];?>

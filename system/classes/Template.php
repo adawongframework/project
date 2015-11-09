@@ -1,0 +1,5 @@
+<?php
+/**
+* Ä£°åÒýÇæÀà
+*/
+class Template extends Ada_Template {}
