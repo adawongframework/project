@@ -2,23 +2,23 @@
 /**
 * 模板引擎实现类
 *+----------顺序结构--------------编译之后----------------------------------------------
-* {date('Y-m-d H:i:s')/}		   -> <?php echo date('Y-m-d H:i:s');?>
-* {$name/}                         -> <?php echo $this->variables['name'];?>
-* {template head.tpl/}             -> <?php include "head.tpl";?>
+* {date('Y-m-d H:i:s')/}			-> <?php echo date('Y-m-d H:i:s');?>
+* {$name/}							-> <?php echo $this->variables['name'];?>
+* {template head.tpl/}				-> <?php include "head.tpl";?>
 *
 *+----------选择结构--------------编译之后----------------------------------------------
-* {if $count == 1}                 -> <?php if ($this->variables['count'] > 1) {?>
-*	//do1                          ->   //do1
-* {elseif $count > 1}              -> <?php }else if ($this->variables['count'] > 1) {?> 
-*	//do2                          ->	//do2  
-* {else}						   -> <?php }else {?>
-*	//do3                          ->	//do3
-* {/if}							   -> <?php }?>
+* {if $count == 1}					-> <?php if ($this->variables['count'] > 1) {?>
+*	//do1							->   //do1
+* {elseif $count > 1}				-> <?php }else if ($this->variables['count'] > 1) {?> 
+*	//do2							->	//do2  
+* {else}							-> <?php }else {?>
+*	//do3							->	//do3
+* {/if}								-> <?php }?>
 *
 *+-----------循环结构-------------编译之后----------------------------------------------
-* {loop var=$list key=$index}      -> <?php for ($index = 0; $index < count($this->variables['list'])); $index++{?>
-* {$list[$index]/}                 -> <?php echo $this->variables["list"][$index];?>
-* {/loop}						   -> <?php }?>
+* {loop var=$list key=$index}		-> <?php for ($index = 0; $index < count($this->variables['list'])); $index++{?>
+* {$list[$index]/}					-> <?php echo $this->variables["list"][$index];?>
+* {/loop}							-> <?php }?>
 *
 */
 abstract class Ada_Template extends Ada_Wong {
