@@ -12,6 +12,7 @@ class Cache extends Ada_Wong{
 
 	/**
 	* 获取一个缓存对象实例
+	*+--------------------
 	*/
 	public static function factory($driver='file') {
 		if (!isset(self::$instance[$driver])) {

@@ -36,12 +36,15 @@ class Ada_Cache_File extends Ada_Cache {
 	/**
 	* 设置缓存数据
 	*+------------
-	* @param String $key
-	* @param Mixed $val
-	* @param Int $expires
+	* @param String $key 缓存键名
+	* @param Mixed $val 缓存数据
+	* @param Int $expires 有效时间
 	* return Boolean
 	*/
 	public function set($key, $val, $expires=0) {
+		if (!is_string($key)) {
+			throw Ada_Exception('Key Must Be String Type');
+		}
 		$name = md5($key);
 		$path = self::$directory.DIRECTORY_SEPARATOR.substr($name, 0, 1);
 		if (!is_dir($path)) {
@@ -57,7 +60,7 @@ class Ada_Cache_File extends Ada_Cache {
 	/**
 	* 获取缓存数据
 	*+------------
-	* @param String $key
+	* @param String $key 缓存键名
 	* @return Mixed
 	*/
 	public function get($key) {
@@ -81,7 +84,7 @@ class Ada_Cache_File extends Ada_Cache {
 	/**
 	* 清除指定$key缓存数据
 	*+--------------------
-	* @param String $key
+	* @param String $key 缓存键名
 	* @return Boolean
 	*/
 	public function del($key) {
