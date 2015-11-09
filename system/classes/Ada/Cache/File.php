@@ -10,13 +10,13 @@ class Ada_Cache_File extends Ada_Cache {
 	
 	/**
 	* 缓存文件保存目录
-	* var String
+	* @var String
 	*/
 	public static $directory = './tmp';
 	
 	/**
 	* 缓存文件名后缀
-	× @var String
+	* @var String
 	*/
 	public static $tmpsuffix = 'tmp';
 
