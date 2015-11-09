@@ -76,11 +76,11 @@ class Ada_Request_Internal extends Ada_Wong {
 * $return String
 */
 private function mapPath($routes) {
-	$this->controller = $this->directory.'_';
+	$this->controller = ucfirst($this->directory.'_');
 	if (isset($routes['directory']) && !empty($routes['directory'])) {
 		$this->controller.= $routes['directory'].'_';
 	}
-	$this->controller.= $routes['controller'];
+	$this->controller.= ucfirst($routes['controller']);
 	$this->action = $this->prefix.$routes['action'];
 	return str_replace('_', DIRECTORY_SEPARATOR, $this->controller);
 }

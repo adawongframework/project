@@ -11,6 +11,7 @@ try {
 		echo $response;
 	}
 } catch (Ada_Exception $e) {
-	//echo $e->getMessage();
-	echo '<div style="text-align:center">404,Page Not Found!</div>';
+	echo $e->getMessage();
+	//echo '<div style="text-align:center">404,Page Not Found!</div>';
 }
+  
