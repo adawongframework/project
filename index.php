@@ -1,12 +1,13 @@
 <?php
-define('ADAPATH', dirname(__FILE__).DIRECTORY_SEPARATOR.'system');
-define('APPPATH', dirname(__FILE__).DIRECTORY_SEPARATOR.'application');
-include ADAPATH.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Ada'.DIRECTORY_SEPARATOR.'Wong.php';
-include ADAPATH.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'Autoload.php';
+define('DS', DIRECTORY_SEPARATOR);
+define('ADAPATH', dirname(__FILE__).DS.'system'); //system folder
+define('APPPATH', dirname(__FILE__).DS.'application'); // application folder
+include ADAPATH.DS.'classes'.DS.'Ada'.DS.'Wong.php';
+include ADAPATH.DS.'classes'.DS.'Autoload.php';
 try {
 	Autoload::register();
-	$response = Request::factory()->execute();
-	if ($response->status() ==200) {
+	$response = Request::factory()->execute(); // internal request
+	if ($response->status() ==200) { // status code
 		echo $response;
 	}
 } catch (Ada_Exception $e) {
