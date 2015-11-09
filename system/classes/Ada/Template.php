@@ -149,7 +149,7 @@ abstract class Ada_Template extends Ada_Wong {
 	* 如果检测成功,返回完成文件名称,否则抛出异常.
 	*+--------------------
 	* @param string $tplfile
-	& @return String
+	* @return String
 	*/
 	private function checked($tplfile) {
 		$file = self::$tplfolder.DIRECTORY_SEPARATOR.$tplfile;
