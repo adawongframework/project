@@ -146,7 +146,7 @@ abstract class Ada_Template extends Ada_Wong {
 
 	/**
 	* 检测模板文件是否合法
-	* 如果检测成功,返回完成文件名称,否则抛出异常.
+	* 如果检测成功,返回完成完整名称,否则抛出异常.
 	*+--------------------
 	* @param string $tplfile
 	* @return String
