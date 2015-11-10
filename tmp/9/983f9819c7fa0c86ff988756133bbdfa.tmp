@@ -1,4 +1,5 @@
 <?php if (!$this instanceOf Template) die('Access Failed');?>
+确保/tmp有写入权限
 <!--包含文件-->
 打印变量:<?php echo $this->variables["var"];?></br>
 <!--静态方法-->
@@ -6,7 +7,7 @@
 <!--选择结构-->
 <?php if ($this->variables["total"] ==10){?>
 	total等于10<br/>
-<?php }else if ($total >= 10){?>
+<?php }else if ($this->variables["total"] >= 10){?>
 	total大于等于10<br/>
 <?php }else{ ?>
 	total小于10<br/>

@@ -20,7 +20,7 @@ class Ada_Template_Compile_Choose extends Ada_Template_Compile{
 	
 	public static function compile() {
 		self::$contents = preg_replace(self::pattern(self::$start, self::$close), self::replace(), self::$contents);
-		preg_match_all('/\<\?php (if|else if) .+\?\>/', self::$contents, $matchs);
+		preg_match_all('/\<\?php \}?(if|else if) .+\?\>/', self::$contents, $matchs);
 		if ($matchs[0]) {
 			foreach ($matchs[0] as $v) {
 				$tmp = preg_replace('/\$([a-zA-Z][\w]*)([^=><!])?/', '$this->variables["\\1"]\\2', $v);
