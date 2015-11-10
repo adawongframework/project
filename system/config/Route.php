@@ -8,7 +8,7 @@
 */
 return	array(
 	/**
-	文章详情路由 view-11.html <==> controler:archive action:details id:11
+	文章详情路由 view-11.html <==> controler:welcome action:details id:11
 	array(
 		'<action>-<id>.html'
 		array(
@@ -17,7 +17,7 @@ return	array(
 		),
 		array(
 			'action'=>'details',
-			'controller'=>'archive',
+			'controller'=>'welcome',
 		),
 	)
 	*/
