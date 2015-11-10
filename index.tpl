@@ -1,4 +1,4 @@
-确保./tmp目录有写入权限:chmod -R 0777 ./tmp
+确保./tmp目录有写入权限:chmod -R 0777 ./tmp</br/>
 <!--包含文件-->
 {template head.tpl/}</br>
 <!--静态方法-->

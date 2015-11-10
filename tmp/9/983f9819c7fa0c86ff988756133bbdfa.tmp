@@ -1,5 +1,5 @@
 <?php if (!$this instanceOf Template) die('Access Failed');?>
-确保/tmp有写入权限
+确保./tmp目录有写入权限:chmod -R 0777 ./tmp</br/>
 <!--包含文件-->
 打印变量:<?php echo $this->variables["var"];?></br>
 <!--静态方法-->
