@@ -1,10 +1,14 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 文件缓存实现类
-*+----------
+*+------------------------------------------------
 * $this->set('name', 'leon');
 * $this->set('name', 'jack', 60); //缓存60(second)
 * $this->get('name') //获取缓存数据
+*+------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/01/10
 */
 class Ada_Cache_File extends Ada_Cache {
 	

@@ -1,44 +1,52 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 外部请求处理具体实现类
-* @package	AdaWong
+*+-------------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2015/04/01
 */
 class Ada_Request_external {
 	
 	/**
 	* 请求的数据
+	* @var Array
 	*/
 	private $data;
 	
 	/**
 	* 是否post请求
+	* @var boolean
 	*/
 	private $ispost;
 
 	/**
 	* 请求的方法
+	* @var String
 	*/
 	private $method;
 	
 	/**
 	* 请求对象
+	* @var Object
 	*/
 	private $request;
 
 	/**
 	* 响应对象
+	* @var Object
 	*/
 	private $response;
 
 	/**
 	* http协议版本
+	* @var Int
 	*/
-	private $version = '1.1';
+	private $version = 1.1;
 	
 	/**
 	* 构造函数
+	*+----------------------------------
 	* @param Request $request 请求对象
 	* @param Response $response 响应对象
 	* @param String $method 请求方法
@@ -55,6 +63,7 @@ class Ada_Request_external {
 
 	/**
 	* 请求处理
+	*+------------
 	* @param Void
 	* @return Void
 	*/
@@ -72,6 +81,7 @@ class Ada_Request_external {
 
 	/**
 	* curl请求
+	*+------------
 	* @param Void
 	* @return Void
 	*/
@@ -97,6 +107,7 @@ class Ada_Request_external {
 	
 	/**
 	* fsockopen请求
+	*+-------------
 	* @param Void
 	* @return Void
 	*/
@@ -130,6 +141,7 @@ class Ada_Request_external {
 
 	/**
 	* stream_create_context请求
+	*+-------------------------
 	* @param Void
 	* @return Void
 	*/
@@ -155,6 +167,7 @@ class Ada_Request_external {
 	
 	/**
 	* 处理响应内容和获取状态码
+	*+--------------------------------
 	* @param String $contents 响应内容
 	* @return Void
 	*/
@@ -175,6 +188,7 @@ class Ada_Request_external {
 
 	/**
 	* 是否post方法请求
+	*+----------------
 	* @param Void
 	* @return Boolean
 	*/

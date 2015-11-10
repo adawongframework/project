@@ -1,15 +1,16 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 使用异或运算实现加密解密
-* @package	AdaWong
+*+------------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	cyhy 2015/01/10
 */
 class Ada_Encrypt_Xor{
 	
 	/**
 	* 对明文进行加密
-	*+--------------
+	*+------------------------------------
 	* @param	String	$encode	输入字符
 	* @param	String	$secret	加密秘钥
 	* @return	String	返回加密之后的密文
@@ -31,7 +32,7 @@ class Ada_Encrypt_Xor{
 	
 	/**
 	* 对密文进行解密
-	*+--------------
+	*+------------------------------------
 	* @param	String	$encode	输入字符
 	* @param	String	$secret	加密秘钥
 	* @return	String	返回解密之后的明文
@@ -51,7 +52,7 @@ class Ada_Encrypt_Xor{
 	
 	/**
 	* 对密文和秘钥进行加密解密
-	*+------------------------
+	*+--------------------------------
 	* @param	String	$string	密文
 	* @param	String	$secret	秘钥
 	* @return	String	返回加密的密文

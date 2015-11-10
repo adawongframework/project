@@ -1,44 +1,52 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 内部请求处理类
-* @package	AdaWong
+*+-------------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/02/01
 */
 class Ada_Request_Internal extends Ada_Wong {
 	
 	/**
 	* controller映射类名称
+	* @var String
 	*/
 	private $controller;
 
 	/**
 	* action映射成员方法名称
+	* @var String
 	*/
 	private $action;
 
 	/**
 	* 注册动态执行方法成员
+	* @var Array
 	*/
 	private $invokes = array('before', 'after');
 	
 	/**
 	* 请求对象实例
+	* @var Object
 	*/
 	private $request;
 
 	/**
 	* 控制文件存放目录
+	* @var String
 	*/
 	private $directory = 'controller';
 
 	/**
 	* action成员方法前缀
+	* @var String
 	*/
 	private $prefix = 'action_';
 	
 	/**
 	* 构造函数
+	*+-----------------------
 	* @param Request $request
 	* @param Arry $routes
 	* @return Void
@@ -63,6 +71,7 @@ class Ada_Request_Internal extends Ada_Wong {
 	
 	/**
 	* 析构函数
+	*+------------
 	* @param Void
 	* @return Void
 	*/
@@ -70,23 +79,25 @@ class Ada_Request_Internal extends Ada_Wong {
 		unset($this->request);
 	}
 
-/**
-* 获取控制器类名及类名称映射的文件
-* $param Array $routes 路由映射信息
-* $return String
-*/
-private function mapPath($routes) {
-	$this->controller = $this->directory.'_';
-	if (isset($routes['directory']) && !empty($routes['directory'])) {
-		$this->controller.= $routes['directory'].'_';
+	/**
+	* 获取控制器类名及类名称映射的文件
+	*+---------------------------------
+	* $param Array $routes 路由映射信息
+	* $return String
+	*/
+	private function mapPath($routes) {
+		$this->controller = $this->directory.'_';
+		if (isset($routes['directory']) && !empty($routes['directory'])) {
+			$this->controller.= $routes['directory'].'_';
+		}
+		$this->controller.= $routes['controller'];
+		$this->action = $this->prefix.$routes['action'];
+		return str_replace('_', DIRECTORY_SEPARATOR, $this->controller);
 	}
-	$this->controller.= $routes['controller'];
-	$this->action = $this->prefix.$routes['action'];
-	return str_replace('_', DIRECTORY_SEPARATOR, $this->controller);
-}
 
 	/**
 	* 动态执行注册的成员方法
+	*+-----------------------------
 	* @param Controller $controller
 	* @return Void
 	*/
