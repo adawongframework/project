@@ -1,14 +1,18 @@
 <?php
 /**
-* ���ݿ������ļ�
+* 数据库配置文件
+*+-----------------------------------------------------------------
+* cp ./system/config/Database.php ./application/config/Database.php
+*+-----------------------------------------------------------------
 */
 return array(
+	//默认配置
 	'default'=>array(
-		'driver' => 'mysql',
-		'hostname'=>'localhost',
-		'username'=>'root',
-		'password'=>'',
-		'database'=>'test',
-		'charset'=>'utf8',
+		'driver' => 'mysql',		//数据库驱动扩展
+		'hostname'=>'localhost',	//数据库服务器地址
+		'username'=>'root',			//数据库用户
+		'password'=>'',				//数据库密码
+		'database'=>'test',			//数据库名称
+		'charset'=>'utf8',			//数据库编码
 	),
 );
