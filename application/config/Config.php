@@ -5,5 +5,5 @@
 */
 return Array(
 	'baseurl' => 'http://localhost/project/', //服务器地址
-	'indexfile' => '' //入口文件名称
+	'indexfile' => 'index.php' //入口文件名称
 );
