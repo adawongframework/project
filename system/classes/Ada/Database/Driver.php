@@ -1,9 +1,10 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* 数据库接口类
-* @package	AdaWong
+* 数据库驱动扩展接口类
+*+-------------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/05
 */
 abstract class	Ada_Database_Driver {
 	

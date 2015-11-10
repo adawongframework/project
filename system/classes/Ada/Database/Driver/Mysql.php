@@ -1,25 +1,43 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Mysql扩展数据库驱动具体实现类
-* @package	AdaWong
+* Mysql扩展数据库驱动实现类
+*+--------------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/05
 */
 class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
-	//数据库配置信息
+	/**
+	* 数据库配置信息
+	* @var Array
+	*/
 	private $config;
-	//链接句柄
+	
+	/**
+	* 链接句柄
+	* @var Resource
+	*/
 	private $identity;
-	//resource
+	
+	/**
+	* 结果句柄
+	* @var Resource
+	*/
 	protected $resource;
-
+	
+	/**
+	* 构造函数
+	*+--------------------
+	* @param Array $config
+	*/
 	public function __construct($config) {
 		$this->config = $config;
 	}
 
 	/**
 	* 执行一个查询语句
+	*+-----------------------------------------------
 	* @param String $sql 查询语句
 	* @return Object Ada_Database_Driver_Mysql_Result
 	*/
@@ -31,6 +49,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 执行一个插入语句
+	*+--------------------------------------------------
 	* @param String $table 数据库表名
 	* @param Array $params 插入数据,其中数组key作为字段名
 	* @return Bool
@@ -46,6 +65,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	
 	/**
 	* 执行一个更新语句
+	*+---------------------------------------------------
 	* @param String $table 数据库表名
 	* @param Array $params 更新数据,其中数组key作为字段名
 	* @param String $where 更新条件
@@ -58,6 +78,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 执行一个删除语句
+	*+-------------------------------
 	* @param String $table 数据库表名
 	* @param String $where 删除条件
 	* @return Bool
@@ -69,6 +90,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 返回最后插入自增id
+	*+------------------
 	* @param Void
 	* @return Int
 	*/
@@ -78,6 +100,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 返回影响的行数
+	*+--------------
 	* @param Void
 	* @return Int
 	*/				
@@ -87,6 +110,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 开启事物
+	*+-----------
 	* @param Void
 	* @return Bool
 	*/
@@ -97,6 +121,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	
 	/**
 	* 回滚事物
+	*+-----------
 	* @param Void
 	* @return Bool
 	*/
@@ -107,6 +132,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 提交事物
+	*+------------
 	* @param Void
 	* @return Bool
 	*/
@@ -114,7 +140,13 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 		$this->dblink();
 		return $this->query("COMMIT");
 	}
-
+	
+	/**
+	* 连接数据库
+	*+---------------
+	* @param Void
+	* @return Boolean
+	*/
 	private function dblink() {
 		if (is_resource($this->identity)) {
 			return TRUE;
@@ -128,6 +160,9 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 
 	/**
 	* 选择数据库
+	*+------------
+	* @param Void
+	* @return Void
 	*/
 	private function choose() {
 		if(!mysql_select_db($this->config['database'])) {
@@ -138,7 +173,10 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	}
 	
 	/**
-	* 执行语句
+	* 执行sql语句
+	*+------------------
+	* @param String $sql
+	* @return Boolean
 	*/
 	private function query($sql) {
 		$this->choose();
@@ -147,7 +185,14 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 		}
 		return TRUE;
 	}
-
+	/**
+	* 析构函数
+	*+--------
+	* 释放资源
+	*+--------
+	* @param Void
+	* @return Void
+	*/
 	public function __destruct() {
 		if (is_resource($this->identity)) {
 			mysql_close($this->identity);

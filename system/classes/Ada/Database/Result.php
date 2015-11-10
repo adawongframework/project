@@ -1,9 +1,10 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Mysql查询结果类
-* @package	AdaWong
+* 鏁版嵁搴撴煡璇㈢粨鏋滄帴鍙ｇ被
+*+----------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/05
 */
 abstract class Ada_Database_Result {
 	

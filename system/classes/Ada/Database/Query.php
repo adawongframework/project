@@ -1,16 +1,18 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Êý¾Ý¿â²éÑ¯×Ö·ûÀà
-* @package	AdaWong
+* æ•°æ®åº“æŸ¥è¯¢è¯­å¥ç”Ÿæˆç±»
+*+--------------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/05
 */
 class Ada_Database_Query {
 	
 	/**
-	* Éú³ÉÒ»Ìõ²åÈëÓï¾ä
-	* @param String $table Êý¾Ý¿â±íÃû
-	* @param Array $params ²åÈëÊý¾Ý,ÆäÖÐÊý×ékey×÷Îª×Ö¶ÎÃû
+	* ç”Ÿæˆä¸€æ¡æ’å…¥è¯­å¥
+	*+---------------------------------------------------
+	* @param String $table æ•°æ®åº“è¡¨å
+	* @param Array $params æ’å…¥æ•°æ®,å…¶ä¸­æ•°ç»„keyä½œä¸ºå­—æ®µå
 	* @return String
 	*/
 	public static function insertString($table, $params) {
@@ -33,10 +35,11 @@ class Ada_Database_Query {
 	}
 
 	/**
-	* Éú³ÉÒ»Ìõ¸üÐÂÓï¾ä
-	* @param String $table Êý¾Ý¿â±íÃû
-	* @param Array $params ¸üÐÂÊý¾Ý,ÆäÖÐÊý×ékey×÷Îª×Ö¶ÎÃû
-	* @param String $where Êý¾Ý¸üÐÂÌõ¼þ
+	* ç”Ÿæˆä¸€æ¡æ›´æ–°è¯­å¥
+	*+--------------------------------------------------
+	* @param String $table æ•°æ®åº“è¡¨å
+	* @param Array $params æ›´æ–°æ•°æ®,å…¶ä¸­æ•°ç»„keyä½œä¸ºå­—æ®µå
+	* @param String $where æ•°æ®æ›´æ–°æ¡ä»¶
 	* @return String
 	*/
 	public static function updateString($table, $params, $where=NULL) {
@@ -57,13 +60,13 @@ class Ada_Database_Query {
 	}
 
 	/**
-	* Éú³ÉÒ»ÌõÉ¾³ýÓï¾ä
-	* @param String $table Êý¾Ý¿â±íÃû
-	* @param String $where É¾³ýÌõ¼þ
+	* ç”Ÿæˆä¸€æ¡åˆ é™¤è¯­å¥
+	*+-------------------------------
+	* @param String $table æ•°æ®åº“è¡¨å
+	* @param String $where åˆ é™¤æ¡ä»¶
 	* @return String
 	*/
 	public static function deleteString($table, $where=NULL) {
 		return "DELETE FROM `$table`".$where;
 	}
-
 }
