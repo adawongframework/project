@@ -7,20 +7,18 @@
 *+-----------------------------------------------------------
 */
 return	array(
-	/**
-	文章详情路由 view-11.html <==> controler:welcome action:details id:11
+	
+	//文章详情路由 details-11.html <==> controler:welcome action:details id:11
 	array(
-		'<action>-<id>.html'
+		'<action>-<id>.html',
 		array(
-			'action'=>'view',
+			'action'=>'details',
 			'id'=>'[1-9][0-9]*'
 		),
 		array(
-			'action'=>'details',
 			'controller'=>'welcome',
 		),
-	)
-	*/
+	),
 	//默认路由
 	array(
 		//匹配模式
