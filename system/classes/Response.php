@@ -1,8 +1,9 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* HttpÏìÓ¦´¦ÀíÀà
-* @package	AdaWong
+* Httpå“åº”å¤„ç†ç±»
+*+--------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2015/02/11
 */
 class Response extends Ada_Response{}

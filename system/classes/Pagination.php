@@ -1,26 +1,58 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
+/**
+* åˆ†é¡µå¤„ç†ç±»
+*+---------------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/02/20
+*/
 class Pagination extends Ada_Wong {
 	
-	//µ±Ç°Ò³Âë
+	/**
+	* å½“å‰é¡µç 
+	* @var Int
+	*/
 	public $currpage = 1;
 
-	//·ÖÒ³×Ü¼ÇÂ¼Êý
+	/**
+	* æ€»è®°å½•æ•°
+	* @var Int
+	*/
 	public	$totalRows = 0;
 	
-	//·ÖÒ³±êÇ©ÄÚÈÝ
+	/**
+	* åˆ†é¡µå†…å®¹
+	* @var String
+	*/
 	private $body = '';
 
-	//·ÖÒ³´óÐ¡
+	/**
+	* æ¯é¡µå¤§å°
+	* @var Int
+	*/
 	private $pageSize = 20;
 
-	//·ÖÒ³×ÜÒ³Êý
+	/**
+	* æ€»é¡µç æ•°
+	* @var Int
+	*/
 	private $pageRows = 0;
-
+	
+	/**
+	* æž„é€ å‡½æ•°
+	*+--------------------
+	* @param Int $pageSize
+	*/
 	public function __construct($pageSize=20) {
 		$this->pageSize = $pageSize;
 	}
 	
-
+	/**
+	* ç”Ÿæˆåˆ†é¡µæ ‡ç­¾
+	*+------------------
+	* @parma String $url
+	* @return String
+	*/
 	public function execute($url='') {
 		$this->body = 'totals:'.$this->totalRows;
 		$this->pageRows = ceil($this->totalRows/$this->pageSize);

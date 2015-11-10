@@ -1,26 +1,52 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
+/**
+* 图片处理类
+*+---------------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/02/19
+*/
 class Image extends Ada_Wong{
 	
-	//图片
+	/**
+	* 图片名称
+	* @var String
+	*/
 	private $file = NULL;
 
-	//图片后缀
+	/**
+	* 图片名称后缀
+	* @var String
+	*/
 	private $suffix = '';
 	
-	//图片格式
+	/**
+	* 图片格式
+	* @var String
+	*/
 	private $format = 'gif|png|jp[e]?g';
 
-	//图片宽度
+	/**
+	* 图片宽度
+	* @var Int
+	*/
 	private $width = 0;
 
-	//图片高度
+	/**
+	* 图片高度
+	* @var Int
+	*/
 	private $height = 0;
 	
-	//图片对象
+	/**
+	* 图片资源对象
+	* @var Resource
+	*/
 	private $resource = NULL;
 	
 	/**
-	* 设置要处理的图片
+	* 构造函数
+	*+---------------------------------------
 	* 如果文件不存在或者不是图片文件将抛出错误
 	* @param String $image 完整图片名称
 	*/
@@ -38,6 +64,7 @@ class Image extends Ada_Wong{
 	
 	/**
 	* 设置图片大小
+	*+-------------------------------
 	* @param $width Int 目标图片宽度
 	* @param $height Int 目标图片高度
 	* @return Self
@@ -55,6 +82,7 @@ class Image extends Ada_Wong{
 
 	/**
 	* 输出图片
+	*+------------
 	* @return Void
 	*/
 	public function output() {
@@ -64,6 +92,7 @@ class Image extends Ada_Wong{
 
 	/**
 	* 对图片进行过滤处理
+	*+------------------
 	* @return Self
 	*/
 	public function filter() {
@@ -73,6 +102,7 @@ class Image extends Ada_Wong{
 
 	/**
 	* 保存文件
+	*+------------------------------
 	* 如果保存文件失败将抛出异常
 	* @param String $name 新文件名称
 	* @param String $path 保存目录
@@ -98,7 +128,13 @@ class Image extends Ada_Wong{
 		$func = str_replace('jpg', 'jpeg', 'image'.$this->suffix);
 		$func($this->resource, $file);
 	}
-
+	
+	/**
+	* 析构函数 释放资源
+	*+-----------------
+	* @parma Void
+	* @return Void
+	*/
 	public function __destruct() {
 		if (is_resource($this->resource)) {
 			imagedestroy($this->resource);

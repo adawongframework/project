@@ -2,9 +2,9 @@
 /**
 * Utf8字符处理类
 *+--------------
-* @package	AdaWong
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/04/10
 */
 class Utf8 extends Ada_Utf8 {
 

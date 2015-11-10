@@ -1,42 +1,61 @@
 <?php
 /**
-* ×Ô¶¯ÔØÈëÀàÎÄ¼þ
-* Autolaod::register()×¢²á×Ô¶¯¼ÓÔØÀàÎÄ¼þ
-* ÀàÃû³ÆÊ¹ÓÃÏÂ»®Ïß"_"·Ö¸îÀ´Ó³ÉäÀàÎÄ¼þËùÔÚÄ¿Â¼
-* ÏµÍ³¼°Ó¦ÓÃÀàÎÄ¼þ¶¼ÔÚ·ÅÔÚÓÉself::$folderÖ¸¶¨µÄÄ¿Â¼ÖÐ
-* ÀàÎÄ¼þÔØÈëÄ¿Â¼ÓÉself::$directoryÖ¸¶¨µÄÄ¿Â¼ÖÐ
+* è‡ªåŠ¨è½½å…¥ç±»æ–‡ä»¶
+*+-------------------------------------------------------------
+* ä½¿ç”¨self::register()æ–¹æ³•æ³¨å†Œè‡ªåŠ¨è½½å…¥æœºåˆ¶
+* ç±»åç§°ä½¿ç”¨ä¸‹åˆ’çº¿"_"æ˜ å°„ç±»æ–‡ä»¶ç›¸å¯¹äºŽclassesç›®å½•å­˜æ”¾çš„ä½ç½®
+* è‡ªåŠ¨è½½å…¥æœºåˆ¶ä¼˜å…ˆæŸ¥æ‰¾APPPATH/classes,å…¶æ¬¡æ˜¯ADAPATH/classesç›®å½•
+*+-------------------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/01/10
 */
-class Autoload extends Ada_Wong {
+abstract class Autoload extends Ada_Wong {
 	
-	//¶¨ÒåÀàÎÄ¼þËùÔÚÄ¿Â¼
+	/**
+	* å®šä¹‰ç±»æ–‡ä»¶å­˜æ”¾ç›¸å¯¹ç›®å½•
+	* @var String
+	*/
 	private static $folder = 'classes';
 	
-	//¶¨Òå²éÕÒÀàÎÄ¼þÄ¿Â¼
+	/**
+	* å®šä¹‰ç±»æ–‡ä»¶æŸ¥æ‰¾ç›®å½• ç›®å½•åç§°è¶Šé å‰,ä¼˜å…ˆçº§è¶Šé«˜
+	* @var String
+	*/
 	private static $directory = array(APPPATH, ADAPATH);
 
-	//¶¨ÒåÀàÃû³ÆÄ£Ê½
+	/**
+	* å®šä¹‰ç±»åç§°åŒ¹é…æ¨¡å¼
+	* @var String
+	*/
 	private static $pattern = array(
-		'filename' => '#^[a-z][a-z0-9]*$#i', //ÀàÃû³ÆÓëÀàÎÄ¼þÂ·¾¶ÏàÍ¬
-		'filepath' => '#(?<filepath>(?:[a-z]+_)+)(?<filename>[a-z][a-z0-9]*)#i' //ÀàÃû³ÆÓ³ÉäÀàÎÄ¼þÂ·¾¶
+		'filename' => '#^[a-z][a-z0-9]*$#i', //ç±»åç§°
+		'filepath' => '#(?<filepath>(?:[a-z]+_)+)(?<filename>[a-z][a-z0-9]*)#i' //ç±»ç›®å½•
 	);
 	
 	/**
-	* ×¢²á×Ô¶¯ÔØÈë»úÖÆ
+	* æ³¨å†Œè‡ªåŠ¨è½½å…¥æœºåˆ¶
+	*+----------------
 	* @param Void
 	* @return Void
 	*/
 	public static function register() {
-		spl_autoload_register(array('self', '_L'));
+		if (function_exists('spl_autoload_register')) {
+			spl_autoload_register(array('self', 'loadfile'));
+		} else {
+			throw new Exception('SPL Expansion Is Not Enabled');
+		}
 	}
 	
 	/**
-	* ÔØÈëÀàÎÄ¼þ ÀàÃû³ÆÓ³ÉäÀàÎÄ¼þËùÔÚÄ¿Â¼
-	* @param $class String ÀàÃû³Æ
-	* @return Èç¹û³É¹¦·µ»ØTRUE,·ñÔòÅ×³öÒì³£
+	* è½½å…¥ç±»æ–‡ä»¶
+	*+----------
+	* @param $class String ç±»åç§°
+	* @return å¦‚æžœæˆåŠŸè¿”å›žTRUE,å¦åˆ™æŠ›å‡ºå¼‚å¸¸
 	*/
-	private static function _L($class) {
+	private static function loadfile($class) {
 		$found = FALSE;
-		$file = self::_V($class);
+		$file = self::checked($class);
 		if ($file) {
 			$path = str_replace('_', DIRECTORY_SEPARATOR, $file['path']);
 			$file = self::$folder.DIRECTORY_SEPARATOR.$path.$file['name'].self::$ext;
@@ -48,22 +67,23 @@ class Autoload extends Ada_Wong {
 			}
 		}
 		if ($found === FALSE) {
-			throw new	Ada_Exception('Class '.$class.' not found');
+			throw new	Ada_Exception('Class '.$class.' Is Not Found');
 		}
 	}
 	
 	/**
-	* ÑéÖ¤ÀàÃû³ÆÊÇ·ñºÏ·¨
-	* @param $class String ÀàÃû³Æ
-	* @return Boolean;
+	* æ£€æµ‹ç±»åæ˜¯å¦åˆæ³•
+	*+----------------
+	* @param $class String ç±»åç§°
+	* @return Mixed;
 	*/
-	private static function _V($class) {
+	private static function checked($class) {
 		$file = array('path'=>'', 'name'=>'');
 		if (preg_match(self::$pattern['filename'], $class)) {
-			$file['name'] = $class;
+			$file['name'] = ucfirst($class);
 		} else if (preg_match(self::$pattern['filepath'], $class, $matchs)) {
-			$file['name'] = $matchs['filename'];
-			$file['path'] = $matchs['filepath'];
+			$file['name'] = ucfirst($matchs['filename']);
+			$file['path'] = ucfirst($matchs['filepath']);
 		} else {
 			return FALSE;
 		}

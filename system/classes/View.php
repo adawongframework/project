@@ -1,14 +1,16 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 视图类
-* @package	AdaWong
+*+---------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/02/19
 */
 class View extends Ada_View {
 	
 	/**
 	* 构造方法
+	*+------------------------------------
 	* @param String $file 视图模板文件名称
 	* @return Void
 	*/
@@ -27,6 +29,7 @@ class View extends Ada_View {
 	
 	/**
 	* 模板赋值
+	*+------------------
 	* @param Mixed $name
 	* @param Mixed $vals
 	* @return Self
@@ -42,6 +45,7 @@ class View extends Ada_View {
 	
 	/**
 	* 渲染视图
+	*+------------
 	* @param Void
 	* @return Void
 	*/

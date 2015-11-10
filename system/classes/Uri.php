@@ -1,10 +1,9 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Uri´¦ÀíÀà
-* Request::factory('welcome/say')->execute();
-* Request::factory('http://www.baidu.com')->method('get')->execute();
-* @package	AdaWong
+* Uriå¤„ç†ç±»
+*+---------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/02
 */
 class Uri extends Ada_Uri {}

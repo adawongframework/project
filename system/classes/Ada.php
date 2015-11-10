@@ -1,8 +1,9 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* ºËÐÄÀà
-* @package	AdaWong
+* åŠŸèƒ½ç±»
+*+-----------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/11
 */
 class Ada extends Ada_Wong {}

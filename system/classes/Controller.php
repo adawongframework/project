@@ -1,8 +1,9 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* ¿ØÖÆÆ÷Àà
-* @package	AdaWong
+* åŸºç¡€æŽ§åˆ¶å™¨ç±»
+*+------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/02/10
 */
 class Controller extends Ada_Controller{}

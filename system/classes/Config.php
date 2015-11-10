@@ -1,8 +1,9 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* ÅäÖÃÎÄ¼þ´¦ÀíÀà
-* @package	AdaWong
+* é…ç½®ç±»
+*+------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/10
 */
 class Config extends Ada_Config {}
