@@ -1,44 +1,52 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 请求处理实现类
-* @package	AdaWong
+*+--------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2015/11/10
 */
 abstract class Ada_Request {
 	
 	/**
 	* 请求url
+	* @var String
 	*/
 	private	$url = '';
 
 	/**
 	* 请求方法
+	* @var String
 	*/
 	private $method = 'GET';
 	
 	/*
 	* 请求参数
+	* @var Array
 	*/
 	private $params = array();
 
 	/**
 	* 响应对象
+	* @var Object
 	*/
 	private $response = NULL;
 	
 	/**
 	* 请求协议
+	* @var String
 	*/
 	protected $protocol = 'http';
 
 	/**
 	* 允许请求的方法
+	* @var String
 	*/
 	protected $allowMethods = array('GET', 'POST');
 
 	/**
 	* 构造方法
+	*+----------------------------
 	* @param String $url 请求的url
 	*/
 	public function __construct($url=NULL) {
@@ -48,6 +56,7 @@ abstract class Ada_Request {
 
 	/**
 	* 设置请求方法
+	*+------------------------------
 	* @param String $method 请求方式
 	* @return Ref
 	*/				
@@ -62,6 +71,7 @@ abstract class Ada_Request {
 
 	/**
 	* 执行请求
+	*+--------------------
 	* @param Void
 	* @return Response实例
 	*/
@@ -76,6 +86,7 @@ abstract class Ada_Request {
 
 	/**
 	* 执行内部请求
+	*+------------
 	* @param Void
 	* @return Void
 	*/
@@ -85,6 +96,7 @@ abstract class Ada_Request {
 
 	/**
 	* 执行外部请求
+	*+-------------
 	* @param Void
 	* @return Void
 	*/
@@ -94,6 +106,7 @@ abstract class Ada_Request {
 	
 	/**
 	* 设置请求参数
+	*+------------------------------
 	* @param Mixed $key 请求参数名称
 	* @param Mixed $val 参数值
 	* @return Self
@@ -109,6 +122,7 @@ abstract class Ada_Request {
 
 	/**
 	* 获取请求的url
+	*+--------------
 	* @param Void
 	* @return String
 	*/
@@ -118,6 +132,7 @@ abstract class Ada_Request {
 	
 	/**
 	* 获取请求参数
+	*+-------------------------------
 	* @param String $key 请求参数名称
 	* @param Mixed $default 默认值
 	* @return Mixed
@@ -135,6 +150,7 @@ abstract class Ada_Request {
 
 	/**
 	* 获取$_POST数据
+	*+----------------------------
 	* @param String $key  变量名称
 	* @param Mixed $default 默认值
 	* @return Mixed
@@ -151,6 +167,7 @@ abstract class Ada_Request {
 
 	/**
 	* 获取$_GET数据
+	*+---------------------------
 	* @param String $key  变量名称
 	* @param Mixed $default 默认值
 	* @return Mixed
@@ -160,7 +177,8 @@ abstract class Ada_Request {
 	}
 
 	/**
-	* 是否Ajax请求
+	* 判断客户端是否Ajax请求
+	*+---------------
 	* @param Void
 	* @return Boolean
 	*/

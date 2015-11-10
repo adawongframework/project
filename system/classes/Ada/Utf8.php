@@ -2,24 +2,33 @@
 /**
 * Utf8编码字符处理实现类
 *+----------------------
-* @package	AdaWong
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/03/10
 */
 abstract class Ada_Utf8 extends Ada_Wong {
 	
-	//ascii字符编码范围
+	/**
+	* ASCII字符编码范围
+	* @var String
+	*/
 	const ASCII = '[\x00-\x7f]';
 
-	//多字节编码范围
+	/**
+	* 多字节编码范围
+	* @var String
+	*/
 	const MULTI = '(?:[\xC0-\xDF]|[\xE0-\xEF]|[\xF0-\xF7]|[\xF8-\xFB]|[\xFC-\xFD])(?:[\x80-\xBF]{1,5})';
 	
-	//编码
+	/**
+	* 字符编码
+	* @var String
+	*/
 	const CHARSET = 'UTF-8';
 	
 	/**
 	* 判断字符是否为ASCII字符
-	*+-----------------------
+	*+------------------------------
 	* @param String $string	输入字符
 	* @return Boolean
 	*/
@@ -29,7 +38,7 @@ abstract class Ada_Utf8 extends Ada_Wong {
 	
 	/**
 	* 判断字符是否为多字节字符
-	*+-----------------------
+	*+------------------------------
 	* @param String $string 输入字符
 	* @return Bool
 	*/
@@ -67,7 +76,7 @@ abstract class Ada_Utf8 extends Ada_Wong {
 
 	/**
 	* 获取字符长度
-	*+------------
+	*+------------------------------
 	* @param String $string 输入字符
 	* @return Int
 	*/
@@ -89,6 +98,7 @@ abstract class Ada_Utf8 extends Ada_Wong {
 
 	/**
 	* 字符截取
+	*+-----------------------------------------------
 	* 从输入字符的{$start}位置开始截取{$length}个字符
 	*+-----------------------------------------------
 	* @param String $string 输入字符
@@ -125,7 +135,7 @@ abstract class Ada_Utf8 extends Ada_Wong {
 
 	/**
 	* 获取字符字节个数
-	*+----------------
+	*+------------------------------
 	* @param String $string 输入字符
 	* @return Int
 	*/

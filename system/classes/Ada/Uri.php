@@ -1,12 +1,16 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* uri处理类
+* Uri处理类
+*+----------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/03/11
 */
-
 class Ada_Uri {
 	
 	/**
 	* 获取主机名
+	*+--------------
 	* @param Void
 	* @return String
 	*/
@@ -15,7 +19,8 @@ class Ada_Uri {
 	}
 
 	/**
-	* 获取pathinfo
+	* 获取PATHINFO
+	*+------------
 	* @param Void
 	* @return String
 	*/
@@ -36,6 +41,7 @@ class Ada_Uri {
 
 	/**
 	* 生成一个基于主机名的url
+	*+-----------------------
 	* @param Mixed $segment
 	* @param String $suffix
 	* @return String

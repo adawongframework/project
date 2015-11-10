@@ -1,26 +1,40 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* 视图类
-* @package	AdaWong
+* 框架视图类
+*+-----------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/11
 */
 abstract class Ada_View extends Ada_Wong {
 
-	//模版文件
+	/**
+	* 视图文件
+	* @var String
+	*/
 	protected $file;
 	
-	//存在模版数据
+	/**
+	* 视图数据
+	* @var Array
+	*/
 	protected static $variable = array();
 
-	//视图文件夹
+	/**
+	* 视图文件存放相对目录
+	* @var String
+	*/
 	protected static $folder = 'views';
 
-	//视图文件目录
+	/**
+	* 视图文件查找目录
+	* @var String
+	*/
 	protected static $directory = array(APPPATH, ADAPATH);
 
 	/**
-	* 设置模版数据
+	* 设置视图数据
+	*+----------------------------
 	* @param $name String 变量名称
 	* @param $vals Mixed 变量数据
 	* @return self
@@ -28,7 +42,8 @@ abstract class Ada_View extends Ada_Wong {
 	abstract public function assign($name, $vals);
 
 	/**
-	* 显示模版
+	* 渲染视图
+	*+--------------
 	* @param Void
 	* @return String
 	*/

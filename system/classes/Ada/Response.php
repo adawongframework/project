@@ -1,25 +1,28 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* HttpÏìÓ¦´¦ÀíÊµÏÖÀà
-* @package	AdaWong
+* Httpå“åº”å¤„ç†å®žçŽ°ç±»
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/03/03
 */
 abstract class Ada_Response extends Ada_Wong {
 
 	/**
-	* ÏìÓ¦ÄÚÈÝ
+	* å“åº”å†…å®¹
+	* @var String
 	*/
 	private $body = '';
 
 	/**
-	* ÏìÓ¦×´Ì¬Âë
+	* å“åº”çŠ¶æ€ç 
+	* @var Int
 	*/
 	private $code = 404;
 	
 	/**
-	* »ñÈ¡ºÍÉèÖÃÏìÓ¦ÄÚÈÝ
-	* @param String ÏìÓ¦ÄÚÈÝ
+	* èŽ·å–å’Œè®¾ç½®å“åº”å†…å®¹
+	*+----------------------
+	* @param String å“åº”å†…å®¹
 	* @return String
 	*/
 	public function body() {
@@ -30,7 +33,8 @@ abstract class Ada_Response extends Ada_Wong {
 	}
 	
 	/**
-	* »ñÈ¡ÉèÖÃÏìÓ¦×´Ì¬Âë
+	* èŽ·å–è®¾ç½®å“åº”çŠ¶æ€ç 
+	*+------------------
 	* @param Void
 	* @return Int
 	*/
@@ -42,7 +46,8 @@ abstract class Ada_Response extends Ada_Wong {
 	}
 	
 	/**
-	* ·µ»ØÏìÓ¦ÐÅÏ¢
+	* è¿”å›žå“åº”ä¿¡æ¯
+	*+--------------
 	* @param Void
 	* @retrun String
 	*/
@@ -51,7 +56,10 @@ abstract class Ada_Response extends Ada_Wong {
 	}
 	
 	/**
-	* Îö¹¹º¯Êý
+	* æžæž„å‡½æ•°
+	*+------------
+	* é‡Šæ”¾å˜é‡
+	*+------------
 	* @param Void
 	* @return Void
 	*/

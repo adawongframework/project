@@ -1,12 +1,12 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 模板引擎实现类
-*+----------顺序结构--------------编译之后----------------------------------------------
+*+----------顺序结构--------------编译之后-------------------------------------------------------------------------
 * {date('Y-m-d H:i:s')/}			-> <?php echo date('Y-m-d H:i:s');?>
 * {$name/}							-> <?php echo $this->variables['name'];?>
 * {template head.tpl/}				-> <?php include "head.tpl";?>
 *
-*+----------选择结构--------------编译之后----------------------------------------------
+*+----------选择结构--------------编译之后-------------------------------------------------------------------------
 * {if $count == 1}					-> <?php if ($this->variables['count'] == 1) {?>
 *	//do1							->   //do1
 * {elseif $count > 1}				-> <?php }else if ($this->variables['count'] > 1) {?> 
@@ -19,7 +19,10 @@
 * {loop var=$list key=$index}		-> <?php for ($index = 0; $index < count($this->variables['list'])); $index++{?>
 * {$list[$index]/}					-> <?php echo $this->variables["list"][$index];?>
 * {/loop}							-> <?php }?>
-*
+*+------------------------------------------------------------------------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/02/11
 */
 abstract class Ada_Template extends Ada_Wong {
 	
@@ -73,9 +76,9 @@ abstract class Ada_Template extends Ada_Wong {
 
 	/**
 	* 绑定模板变量和值
-	*+--------------------------
+	*+-----------------------------
 	* $this->bindvar('name', 'sara');
-	*+--------------------------
+	*+-----------------------------
 	* @param Stirng $key
 	* @param Mixed $var
 	* @return Self
@@ -146,8 +149,9 @@ abstract class Ada_Template extends Ada_Wong {
 
 	/**
 	* 检测模板文件是否合法
+	*+-------------------------------------------
 	* 如果检测成功,返回完成完整名称,否则抛出异常.
-	*+--------------------
+	*+-------------------------------------------
 	* @param string $tplfile
 	* @return String
 	*/

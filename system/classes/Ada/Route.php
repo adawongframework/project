@@ -1,43 +1,49 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Â·ÓÉ´¦ÀíÀà
-* @package	AdaWong
+* è·¯ç”±å¤„ç†ç±»
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/01/02
 */
 abstract class Ada_Route extends Ada_Wong {
 	
 	/**
-	* request¶ÔÏóÊµÀı
+	* requestå¯¹è±¡å®ä¾‹
+	* @var Request
 	*/
 	private	$request = NULL;
 
 	/**
-	* Â·ÓÉ¹æÔò±í
+	* è·¯ç”±è§„åˆ™è¡¨
+	* @var Array
 	*/
 	private $routes = array();
 	
 	/**
-	* ±£´æÂ·ÓÉÆ¥ÅäĞÅÏ¢
+	* ä¿å­˜è·¯ç”±åŒ¹é…ä¿¡æ¯
+	* @var Array
 	*/
 	private $matchs = array();
 
 	/**
-	* ±£´æµ±Ç°Â·ÓÉ¹æÔòÃû³Æ
+	* ä¿å­˜å½“å‰è·¯ç”±è§„åˆ™åç§°
+	* @var String
 	*/
 	private $active = NULL;
 	
 	/**
-	* ¹¹Ôìº¯Êı
+	* æ„é€ å‡½æ•°
+	*+-----------------------
 	* @param Request $request
 	*/
 	public function __construct(Request &$request) {
 		$this->request = $request;
-		$this->routes = Config::load('Route', TRUE); //ÔØÈëÂ·ÓÉ¹æÔòÅäÖÃÎÄ¼ş
+		$this->routes = Config::load('Route', TRUE); //è½½å…¥è·¯ç”±è§„åˆ™é…ç½®æ–‡ä»¶
 	}
 	
 	/**
-	* Ö´ĞĞÂ·ÓÉ²Ù×÷
+	* æ‰§è¡Œè·¯ç”±æ“ä½œ
+	*+-------------
 	* @param Void
 	* @return Array
 	*/
@@ -46,7 +52,7 @@ abstract class Ada_Route extends Ada_Wong {
 			foreach ($this->matchs as $key=>$val) {
 				if (preg_match('`^[a-z]+$`', $key)) {
 					if (!preg_match('`^(directory|controller|action|)$`', $key)) {
-						$this->request->setparam($key, $val); //ÉèÖÃrequest¶ÔÏóÇëÇó²ÎÊı
+						$this->request->setparam($key, $val); //è®¾ç½®requestå¯¹è±¡è¯·æ±‚å‚æ•°
 						unset($this->matchs[$key]);
 					}
 				} else {
@@ -60,18 +66,19 @@ abstract class Ada_Route extends Ada_Wong {
 				return $this->matchs;
 			}
 		}
-		throw new Ada_Exception('The requ'); //ÇëÇóuriÃ»ÓĞÆ¥ÅäÂ·ÓÉ±íÖĞÈÎºÎÒ»Ìõ¹æÔò
+		throw new Ada_Exception('The requ'); //è¯·æ±‚uriæ²¡æœ‰åŒ¹é…è·¯ç”±è¡¨ä¸­ä»»ä½•ä¸€æ¡è§„åˆ™
 	}
 	
 	/**
-	* ½âÎöÂ·ÓÉ¹æÔò±í
+	* è§£æè·¯ç”±è§„åˆ™è¡¨
+	*+--------------
 	* @param Void
 	* @return Self
 	*/
 	public function parser() {
 		$url = $this->request->getUrl();
 		if ($url) {
-			//Èç¹û$uri²»Îª¿Õ,±éÀúÂ·ÓÉ¹æÔò±í,½«$uriÓëÃ¿Ìõ¹æÔò±í½øĞĞÕıÔòÆ¥Åä,Ö±µ½ÕÒµ½ÏàÆ¥ÅäµÄ¹æÔòĞÅÏ¢;·ñÔòÅ×³öÒì³£
+			//å¦‚æœ$uriä¸ä¸ºç©º,éå†è·¯ç”±è§„åˆ™è¡¨,å°†$uriä¸æ¯æ¡è§„åˆ™è¡¨è¿›è¡Œæ­£åˆ™åŒ¹é…,ç›´åˆ°æ‰¾åˆ°ç›¸åŒ¹é…çš„è§„åˆ™ä¿¡æ¯;å¦åˆ™æŠ›å‡ºå¼‚å¸¸
 			foreach ($this->routes as $key=>$route) {
 				if (empty($route)) continue;
 				if (preg_match($this->matchs($route), $url, $this->matchs)) {
@@ -79,7 +86,7 @@ abstract class Ada_Route extends Ada_Wong {
 					break;
 				}
 			}
-		} else { //»ñÈ¡Ä¬ÈÏÂ·ÓÉ¹æÔò,Â·ÓÉ±í×îºóÒ»¸ö
+		} else { //è·å–é»˜è®¤è·¯ç”±è§„åˆ™,è·¯ç”±è¡¨æœ€åä¸€ä¸ª
 			$route = $this->routes[count($this->routes)-1];
 			if (isset($route[2])) {
 				$this->matchs = $route[2];
@@ -89,17 +96,18 @@ abstract class Ada_Route extends Ada_Wong {
 	}
 	
 	/*
-	* ¸ù¾İÂ·ÓÉ¹æÔòÉú³É¶ÔÓ¦ÕıÔò±í´ïÊ½
+	* æ ¹æ®è·¯ç”±è§„åˆ™ç”Ÿæˆå¯¹åº”æ­£åˆ™è¡¨è¾¾å¼
+	*+------------------------------
 	* @param Array $route
 	* @return Boolean
 	*/
 	private function matchs($route) {
-		//¹¹½¨»ù´¡ÕıÔò±í´ïÊ½
+		//æ„å»ºåŸºç¡€æ­£åˆ™è¡¨è¾¾å¼
 		$pattern = preg_replace('`(?<=[)])`', '?', $route[0]);
-		$pattern = preg_replace('`(?<=[(])(?=.)`','?:',$pattern); //Ìí¼Ó?:¶Ô×îÍâ²ã()²»½øĞĞ²¶»ñ
-		$pattern = $uri = preg_replace('`(<[a-z]+>)`','(?\\1)', $pattern); //¶¨Òå²¶»ñ×éÃû
-		$pattern = preg_replace('`(?<=[>])(?=[)])`', '[\w]+', $pattern); //¶¨ÒåÃ¿×é×Ö·û·¶Î§,Ä¬ÈÏ[\w]
-		//¹¹½¨×Ô¶¨ÒåÕıÔò±í´ïÊ½
+		$pattern = preg_replace('`(?<=[(])(?=.)`','?:',$pattern); //æ·»åŠ ?:å¯¹æœ€å¤–å±‚()ä¸è¿›è¡Œæ•è·
+		$pattern = $uri = preg_replace('`(<[a-z]+>)`','(?\\1)', $pattern); //å®šä¹‰æ•è·ç»„å
+		$pattern = preg_replace('`(?<=[>])(?=[)])`', '[\w]+', $pattern); //å®šä¹‰æ¯ç»„å­—ç¬¦èŒƒå›´,é»˜è®¤[\w]
+		//æ„å»ºè‡ªå®šä¹‰æ­£åˆ™è¡¨è¾¾å¼
 		if (isset($route[1]) && is_array($route[1])) {
 			foreach ($route[1] as $key=>$rule) {
 				$pattern = preg_replace('`(?<=[<]'.$key.'[>])\[\\\w\]\+(?=[)])`U', $rule, $pattern);
@@ -109,7 +117,10 @@ abstract class Ada_Route extends Ada_Wong {
 	}
 
 	/**
-	* Îö¹¹º¯Êı
+	* ææ„å‡½æ•°
+	*+-----------
+	* é‡Šæ”¾èµ„æº
+	*+-----------
 	* @param Void
 	* @return Void
 	*/
