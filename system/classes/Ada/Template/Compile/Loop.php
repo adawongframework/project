@@ -1,14 +1,18 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 解析循环结构语句
-*+------------------------------
+*+--------------------------------------------------------------------------------
 * {loop var=$list[0] key=$index}
 * {$list[0][$index]/}
 * {/loop}
-*+------------------------------
+*+--------------------------------------------------------------------------------
 * <?php for ($index = 0; $index < count($this->variables["list"][0]); $index++){?>
 * <?php echo $this->variables["list"][0][$index];?>
 * <?php }?>
+*+--------------------------------------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/02/01
 */
 class Ada_Template_Compile_Loop extends Ada_Template_Compile{
 	

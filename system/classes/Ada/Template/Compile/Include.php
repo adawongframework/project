@@ -1,10 +1,14 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 解析包含文件语句
-*+---------------------
+*+-----------------------------
 * {template test.html/}
-*+---------------------
+*+-----------------------------
 * <?php include "test.html";?>
+*+-----------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/02/01
 */
 class Ada_Template_Compile_Include extends Ada_Template_Compile {
 	

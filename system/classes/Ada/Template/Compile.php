@@ -1,6 +1,10 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 模板编译处理类
+*+--------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/02/01
 */
 class Ada_Template_Compile extends Ada_Template{
 	

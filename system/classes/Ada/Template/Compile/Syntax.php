@@ -1,20 +1,24 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 解析顺序结构语句
-*+--------template----------
+*+--------template----------------------------------------------------------------
 * {time()/}
 * {date('Y-m-d H:i:s')/}
 * {test(1,2,3,4)/}
 * {$user[0]['name']/}
 * {test($user[0]['sex'])/}
 * {test($name)/}
-*+--------compile------------
+*+--------compile-----------------------------------------------------------------
 * <?php echo time();?>
 * <?php echo date('Y-m-d H:i:s');?>
 * <?php echo test(1,2,3,4);?>
 * <?php echo $this->variables["user"][0]['name'];?>
 * <?php echo test($this->variables["user"][0]['sex']);?>
 * <?php echo test($this->variables["name"]);?>
+*+--------------------------------------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/02/01
 */
 class Ada_Template_Compile_Syntax extends Ada_Template_Compile {
 	

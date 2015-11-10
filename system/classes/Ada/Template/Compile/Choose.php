@@ -1,16 +1,20 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * 解析选择结构语句
-*+-----------------------------------
+*+-----------------------------------------------------------------------------------------------------
 * {if $count == 1 && $test >= $count}
 * {elseif $count == 2}
 * {else}
 * {/if}
-*+-----------------------------------
+*+-----------------------------------------------------------------------------------------------------
 * <?php if ($this->variables["count"] == 1 && $this->variables["test"] >= $this->variables["count"]){?>
 * <?php else if ($this->variables["count"] == 2){?>
 * <?php }else{ ?>
 * <?php }?>
++------------------------------------------------------------------------------------------------------
+* @package	Core
+* @category	Base
+* @author	zjie 2015/02/01
 */
 class Ada_Template_Compile_Choose extends Ada_Template_Compile{
 	
