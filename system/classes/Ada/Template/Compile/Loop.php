@@ -35,7 +35,7 @@ class Ada_Template_Compile_Loop extends Ada_Template_Compile{
 	*/
 	public static function pattern($start, $close) {
 		return array(
-			sprintf('/%s[\s]*loop[\s]+var[\s]*=[\s]*\$([a-zA-Z][\w]*)(.+)[\s]+key[\s]*=[\s]*(\$[a-zA-z][\w]*)[\s]*%s/', $start, $close),
+			sprintf('/%s[\s]*loop[\s]+var[\s]*=[\s]*\$([a-zA-Z][\w]*)(.*)[\s]+key[\s]*=[\s]*(\$[a-zA-z][\w]*)[\s]*%s/', $start, $close),
 			sprintf('/%s[\s]*\/loop%s/', $start, $close),
 		);
 	}

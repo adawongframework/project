@@ -55,7 +55,7 @@ class Ada_Template_Compile_Choose extends Ada_Template_Compile{
 	public static function replace() {
 		return array(
 			'<?php if (\\1){?>',
-			'<?php else if (\\1){?>',
+			'<?php }else if (\\1){?>',
 			'<?php }else{ ?>',
 			'<?php }?>'
 		);

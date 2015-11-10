@@ -1,3 +1,17 @@
 <?php if (!$this instanceOf Template) die('Access Failed');?>
-<?php echo $this->variables["name"];?>
-<?php echo $this->variables["name"];?>
+<!--包含文件-->
+打印变量:<?php echo $this->variables["var"];?></br>
+<!--静态方法-->
+你的主机:<?php echo Uri::host();?><br/>
+<!--选择结构-->
+<?php if ($this->variables["total"] ==10){?>
+	total等于10<br/>
+<?php }else if ($total >= 10){?>
+	total大于等于10<br/>
+<?php }else{ ?>
+	total小于10<br/>
+<?php }?>
+<!--循环结构-->
+<?php for ($index = 0; $index < count($this->variables["array"]); $index++){?>
+<?php echo $this->variables["array"][$index];?><br/>
+<?php }?>
