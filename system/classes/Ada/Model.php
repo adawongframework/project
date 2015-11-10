@@ -1,9 +1,10 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* 模型具体实现类
-* @package	AdaWong
+* 模型实现类
+*+--------------
+* @package	Core
 * @category	Base
-* @author	cyhy
+* @author	zjie 2014/02/10
 */
 abstract class Ada_Model {
 

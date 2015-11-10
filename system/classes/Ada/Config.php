@@ -1,34 +1,51 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* ÅäÖÃ´¦ÀíÀà
+* é…ç½®å¤„ç†ç±»
+*+----------
+* @package	Core
+* @category	Base
+* @author	zjie 2014/02/01
 */
 class Ada_Config {
 	
-	//ÅäÖÃÎÄ¼þ´æ·ÅÄ¿Â¼
+	/**
+	* é…ç½®æ–‡ä»¶å­˜æ”¾ç›®å½•
+	* @var String
+	*/	
 	private static $directory = 'config';
 	
-	//ÅäÖÃÎÄ¼þ²éÕÒÄ¿Â¼
+	/**
+	* é…ç½®æ–‡ä»¶æŸ¥æ‰¾ç›®å½•
+	* @var Array
+	*/
 	private static $folders = array(APPPATH, ADAPATH);
 
-	//ÒÑÔØÈëÅäÖÃÎÄ¼þ
+	/**
+	* å·²è½½å…¥é…ç½®æ–‡ä»¶
+	* @var Array
+	*/
 	private static $loaders = array();
 	
-	//ÒÑÔØÈëÅäÖÃÏîÄ¿
+	/**
+	* å·²è½½å…¥é…ç½®é¡¹ç›®
+	* @var Array
+	*/
 	private static $configs = array();
 
 	/**
-	* ÔØÈëÅäÖÃÎÄ¼þ
-	* @param String $file ÅäÖÃÎÄ¼þÃû³Æ
-	* @param Boolean $return ÊÇ·ñ·µ»ØÅäÖÃÏîÄ¿ÐÅÏ¢
-	* @return Mixed Èç¹ûÔØÈëÅäÖÃÎÄ¼þ·µ»ØTRUE,·ñÔòÅ×³öÒì³£
+	* è½½å…¥é…ç½®æ–‡ä»¶
+	* @param String $file é…ç½®æ–‡ä»¶åç§°
+	*+---------------------------------------------------
+	* @param Boolean $return æ˜¯å¦è¿”å›žé…ç½®é¡¹ç›®ä¿¡æ¯
+	* @return Mixed å¦‚æžœè½½å…¥é…ç½®æ–‡ä»¶è¿”å›žTRUE,å¦åˆ™æŠ›å‡ºå¼‚å¸¸
 	*/
 	public static function load($filename, $return=FALSE){
-		//·ÀÖ¹ÖØ¸´ÔØÈë
+		//é˜²æ­¢é‡å¤è½½å…¥
 		if (isset(self::$loaders[strtoupper($filename)])) {
 			return TRUE;
 		}
 		$found = FALSE;
-		//±éÀúÅäÖÃÎÄ¼þ´æ·ÅÄ¿Â¼,ÔØÈëÅäÖÃÎÄ¼þ
+		//éåŽ†é…ç½®æ–‡ä»¶å­˜æ”¾ç›®å½•,è½½å…¥é…ç½®æ–‡ä»¶
 		foreach (self::$folders as $folder) {
 			$file = $folder.DIRECTORY_SEPARATOR.self::$directory.DIRECTORY_SEPARATOR.$filename.'.php';
 			if (is_file($file) && is_readable($file)) {
@@ -44,8 +61,9 @@ class Ada_Config {
 	}
 	
 	/*
-	* »ñÈ¡ÅäÖÃÏîÄ¿ÐÅÏ¢
-	* @param String $path Â·¾¶
+	* èŽ·å–é…ç½®é¡¹ç›®ä¿¡æ¯
+	*+------------------------
+	* @param String $path è·¯å¾„
 	* @return Mixed
 	*/
 	public static function xpath($path) {
