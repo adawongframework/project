@@ -1,0 +1,2 @@
+rewriteEngine Off
+rewriteRule !\.(jp[e]?g|png|gif|png)$ index.php [L]
