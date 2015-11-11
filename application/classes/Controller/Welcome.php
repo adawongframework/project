@@ -7,16 +7,34 @@
 */
 class Controller_Welcome extends Controller {
 	
+	
+	/**
+	* Action之前调用
+	*+--------------
+	*/
+	public function before() {
+		echo __FUNCTION__."\r\n";
+	}
+	
+	/**
+	* Action之后调用
+	*+---------------
+	*/
+	public function after() {
+		echo __FUNCTION__."\r\n";
+	}
 	/**
 	* 首页
+	*+----------------------------
 	* http://yourdomain/index.php/
 	*/
 	public function action_index() {
-		echo 'hello world';
+		echo "hello world\r\n";
 	}
 	
 	/**
 	* 详情页
+	*+-------------------------------------------
 	* http://yourdomain/index.php/details-11.html
 	*/
 	public function action_details() {
@@ -26,6 +44,7 @@ class Controller_Welcome extends Controller {
 
 	/**
 	* 模板引擎
+	*+--------
 	*/
 	public function action_template() {
 		$template = new Template();
@@ -38,6 +57,7 @@ class Controller_Welcome extends Controller {
 
 	/**
 	* 缓存
+	*+----
 	*/
 	public function action_cache() {
 		$cache = Cache::factory('file'); //获取一个文件缓存实例
