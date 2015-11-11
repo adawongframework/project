@@ -78,13 +78,20 @@ abstract class Ada_Template extends Ada_Wong {
 	* 绑定模板变量和值
 	*+-----------------------------
 	* $this->bindvar('name', 'sara');
+	* $this->bindvar(array('name'=>'sara'));
 	*+-----------------------------
-	* @param Stirng $key
+	* @param Mixed $key
 	* @param Mixed $var
 	* @return Self
 	*/
-	public function bindvar($key, $var) {
-		$this->variables[$key] = $var;
+	public function bindvar($key, $var=NULL) {
+		if (is_array($key)) {
+			$this->variables = array_merge($this->variables, $key);	
+		} else if (is_string($key)) {
+			$this->variables[$key] = $var;		
+		} else {
+			throw new Ada_Exception('Wrong data type');
+		}
 		return $this;
 	}
 	
