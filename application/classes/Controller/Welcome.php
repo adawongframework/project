@@ -29,7 +29,9 @@ class Controller_Welcome extends Controller {
 	* http://yourdomain/index.php/
 	*/
 	public function action_index() {
-		echo "hello world\r\n";
+		//实例化一个视图对象
+		$view = new View('index.php');
+		$view->assign('title', 'hello world')->render();//绑定变量并渲染视图
 	}
 	
 	/**
@@ -38,8 +40,8 @@ class Controller_Welcome extends Controller {
 	* http://yourdomain/index.php/details-11.html
 	*/
 	public function action_details() {
-		//获取参数id
-		var_dump($this->request->getparam('id')); //11
+		//获取参数id的值
+		echo $this->request->getparam('id')."\r\n"; //11
 	}
 
 	/**
