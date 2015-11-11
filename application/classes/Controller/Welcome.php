@@ -20,7 +20,8 @@ class Controller_Welcome extends Controller {
 	* http://yourdomain/index.php/details-11.html
 	*/
 	public function action_details() {
-		var_dump($this->request->getparam('id')); //获取id
+		//获取参数id
+		var_dump($this->request->getparam('id')); //11
 	}
 
 	/**
@@ -28,10 +29,11 @@ class Controller_Welcome extends Controller {
 	*/
 	public function action_template() {
 		$template = new Template();
-		$template->bindvar('var', 'helll wolrd'); //
-		$template->bindvar('total', 10);
-		$template->bindvar('array', array(1,2,3,4,5));
-		$template->display('index.tpl');
+		$template->bindvar(array(
+			'var'=>'hello wolrd',
+			'total'=>10,
+			'array'=>array(1,2,3,4,5,6)
+		))->display('index.tpl');
 	}
 
 	/**
