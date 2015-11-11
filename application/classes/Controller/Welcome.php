@@ -63,7 +63,8 @@ class Controller_Welcome extends Controller {
 	*/
 	public function action_cache() {
 		$cache = Cache::factory('file'); //获取一个文件缓存实例
-		//$cache->set('name', 'adawong', 60); //设置有效期60s
+		//$cache->set('name', time(), 60); //设置有效期60s
 		echo $cache->get('name');
+		//$cache->del('name');
 	}
 }
