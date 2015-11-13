@@ -32,6 +32,9 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @param Array $config
 	*/
 	public function __construct($config) {
+		if (!extension_loaded('mysql')) {
+			throw new Ada_Exception('Mysql Expansion is not enabled');
+		}
 		$this->config = $config;
 	}
  

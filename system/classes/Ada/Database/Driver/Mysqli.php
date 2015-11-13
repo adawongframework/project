@@ -42,6 +42,9 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	* @return Ada_Database_Driver_Mysqli_Result
 	*/
 	public function select($sql) {
+		if (!extension_loaded('mysqli')) {
+			throw new Ada_Exception('Mysqli Expansion is not enabled');
+		}
 		$this->query($sql);
 		return new Ada_Database_Driver_Mysqli_Result($this->resource);
 	}
