@@ -1,22 +1,22 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Mysql驱动扩展查询结果类
-*+-----------------------
+* Mysqli驱动扩展查询结果类
+*+------------------------
 * @package	Core
 * @category	Base
 * @author	zjie 2014/01/05
 */
-class Ada_Database_Driver_Mysql_Result extends Ada_Database_Result {
+class Ada_Database_Driver_Mysqli_Result extends Ada_Database_Result {
 	
 	/**
 	* 查询结果资源对象
-	* var Resource
+	* @var Resource
 	*/
 	private $resource = NULL;
-
+	
 	/**
-	* 构造方法
-	*+------------
+	* 构造函数
+	*+-------------------------
 	* @param Resource $resource
 	*/
 	public function __construct(&$resource) {
@@ -27,23 +27,21 @@ class Ada_Database_Driver_Mysql_Result extends Ada_Database_Result {
 	* 获取所有结果
 	*+------------
 	* @param Void
-	* @return Array
+	* @return Void
 	*/
 	public function fetchAll() {
-		$result = array();
-		if (is_resource($this->resource)) {
-			while ($row = mysql_fetch_assoc($this->resource)) {
-				$result[] = $row;
-			}
+		$data = array();
+		while ($row = mysqli_fetch_assoc($this->resource)) {
+			$data[] = $row;
 		}
-		return $result;
+		return $data;
 	}
 	
 	/**
 	* 获取一条结果
-	*+-------------
+	*+------------
 	* @param Void
-	* @return Array
+	* @return Void
 	*/
 	public function fetchRow() {
 		$result = $this->fetchAll();
@@ -55,11 +53,11 @@ class Ada_Database_Driver_Mysql_Result extends Ada_Database_Result {
 	
 	/**
 	* 获取字段结果
-	*+------------------------------------
-	* @param Mixed $field 字段名称或者索引
-	* @return Mixed
+	*+------------
+	* @param Void
+	* @return Void
 	*/
-	public function fetchOne($field='') {
+	public function fetchOne() {
 		$result = $this->fetchRow();
 		if ($result) {
 			if(!empty($field) && isset($result[$field])) {
@@ -71,7 +69,7 @@ class Ada_Database_Driver_Mysql_Result extends Ada_Database_Result {
 		}
 		return NULL;
 	}
-	
+
 	/**
 	* 析构函数
 	*+--------
@@ -82,7 +80,7 @@ class Ada_Database_Driver_Mysql_Result extends Ada_Database_Result {
 	*/
 	public function __destruct() {
 		if (is_resource($this->resource)) {
-			mysql_free_result($this->resource);
+			mysqli_free_result($this->resource);
 		}
 	}
 }

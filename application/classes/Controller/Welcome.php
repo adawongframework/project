@@ -67,4 +67,13 @@ class Controller_Welcome extends Controller {
 		echo $cache->get('name');
 		//$cache->del('name');
 	}
+	
+	/**
+	* 数据库
+	*+------
+	*/
+	public function action_database() {
+		$db = Database::factory('backup');
+		var_dump($db->select("select * from test")->fetchAll());
+	}
 }

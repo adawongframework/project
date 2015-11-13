@@ -1,6 +1,6 @@
 <?php if (!defined('ADAPATH')) die ('Access failure');
 /**
-* Mysql扩展数据库驱动实现类
+* Mysql扩展驱动实现类
 *+--------------------------
 * @package	Core
 * @category	Base
@@ -21,7 +21,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	private $identity;
 	
 	/**
-	* 结果句柄
+	* 查询结果句柄
 	* @var Resource
 	*/
 	protected $resource;
@@ -34,28 +34,26 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	public function __construct($config) {
 		$this->config = $config;
 	}
-
+ 
 	/**
-	* 执行一个查询语句
+	* 执行一条查询语句,返回一个查询结果对象
 	*+-----------------------------------------------
 	* @param String $sql 查询语句
 	* @return Object Ada_Database_Driver_Mysql_Result
 	*/
 	public function select($sql){
-		$this->dblink();
 		$this->query($sql);
 		return new	Ada_Database_Driver_Mysql_Result($this->resource);
 	}
 
 	/**
-	* 执行一个插入语句
+	* 执行一条插入语句
 	*+--------------------------------------------------
 	* @param String $table 数据库表名
 	* @param Array $params 插入数据,其中数组key作为字段名
 	* @return Bool
 	*/
 	public function insert($table, $params){
-		$this->dblink();
 		if ($this->query(Ada_Database_Query::InsertString($table, $params))) {
 			return TRUE;
 		} else {
@@ -64,7 +62,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	}
 	
 	/**
-	* 执行一个更新语句
+	* 执行一条更新语句
 	*+---------------------------------------------------
 	* @param String $table 数据库表名
 	* @param Array $params 更新数据,其中数组key作为字段名
@@ -72,19 +70,17 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Bool
 	*/
 	public function update($table, $params, $where=NULL){
-		$this->dblink();
 		return $this->query(Ada_Database_Query::updateString($table, $params, $where));
 	}
 
 	/**
-	* 执行一个删除语句
+	* 执行一条删除语句
 	*+-------------------------------
 	* @param String $table 数据库表名
 	* @param String $where 删除条件
 	* @return Bool
 	*/
 	public function delete($table, $where=NULL){
-		$this->dblink();
 		return $this->query(Ada_Database_Query::deleteString($table, $where));
 	}
 
@@ -115,7 +111,6 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Bool
 	*/
 	public function start() {
-		$this->dblink();
 		return $this->query("START transaction");
 	}
 	
@@ -126,7 +121,6 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Bool
 	*/
 	public function rollback() {
-		$this->dblink();
 		return $this->query("ROLLBACK");
 	}
 
@@ -137,7 +131,6 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Bool
 	*/
 	public function commit() {
-		$this->dblink();
 		return $this->query("COMMIT");
 	}
 	
@@ -152,7 +145,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 			return TRUE;
 		}
 		if(!$this->identity = @mysql_connect($this->config['hostname'], $this->config['username'], $this->config['password'])) {
-			throw new Ada_Exception(mysql_error(), mysql_errno());
+			$this->error();
 		}
 		$this->query("SET NAMES {$this->config['charset']}");
 		return TRUE;
@@ -166,8 +159,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	*/
 	private function choose() {
 		if(!mysql_select_db($this->config['database'])) {
-			
-			throw new Ada_Exception(mysql_error(), mysql_errno());
+			$this->error();
 		}
 		return TRUE;
 	}
@@ -179,12 +171,24 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Boolean
 	*/
 	private function query($sql) {
+		$this->dblink();
 		$this->choose();
-		if(!$this->resource = mysql_query($sql, $this->identity)) {
-			throw new Ada_Exception(mysql_error(), mysql_errno());
+		if(($this->resource = mysql_query($sql, $this->identity)) == FALSE) {
+			$this->error();
 		}
 		return TRUE;
 	}
+	
+	/**
+	* 捕获异常信息
+	*+------------
+	* @param Void
+	* @return Void
+	*/
+	private function error() {
+		throw new Ada_Exception(mysql_error(), mysql_errno());
+	}
+
 	/**
 	* 析构函数
 	*+--------
@@ -197,5 +201,9 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 		if (is_resource($this->identity)) {
 			mysql_close($this->identity);
 		}
+		if (is_resource($this->resource)) {
+			mysql_result_free($this->resource);
+		}
+		unset($this->config);
 	}
 }

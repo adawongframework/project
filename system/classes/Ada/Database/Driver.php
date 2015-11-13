@@ -14,7 +14,7 @@ abstract class	Ada_Database_Driver {
 
 	abstract public function update($table, $params);
 
-	abstract public function delete($sql);
+	abstract public function delete($table, $where=NULL);
 
 	abstract public function lastId();
 }

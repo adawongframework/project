@@ -39,10 +39,16 @@ abstract class Ada_Template extends Ada_Wong {
 	protected static $tplsuffix = 'tpl';
 
 	/**
-	* 定义缓存文件后缀名
+	* 定义缓存文件后缀
 	* var String
 	*/
 	protected static $tmpsuffix = 'tmp';
+
+	/**
+	* 定义缓存文件前缀
+	* @var String
+	*/
+	protected static $tmpprefix = 'template_';
 	
 	/**
 	* 定义模板文件存放目录
