@@ -17,7 +17,7 @@ return array(
 	),
 	//备库配置
 	'backup'=>array(
-		'driver' => 'mysqli',		//数据库驱动扩展
+		'driver' => 'mysql',		//数据库驱动扩展
 		'hostname'=>'10.10.2.118',	//数据库服务器地址
 		'username'=>'root',			//数据库用户
 		'password'=>'',				//数据库密码

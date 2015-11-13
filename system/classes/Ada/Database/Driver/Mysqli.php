@@ -16,7 +16,7 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	
 	/**
 	* 链接句柄
-	* @var Resource
+	* @var Object
 	*/
 	private $identity;
 	
@@ -71,8 +71,7 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	public function update($table, $params, $where='') {
 		return $this->query(Ada_Database_Query::updateString($table, $params, $where));
 	}
-	
-	
+
 	/**
 	* 执行一条删除语句
 	*+-------------------------
