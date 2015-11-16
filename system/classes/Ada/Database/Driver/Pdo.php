@@ -133,7 +133,8 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Void
 	*/
 	public function start() {
-	
+		$this->dblink();
+		$this->identity->beginTransaction();
 	}
 	
 	/**
@@ -143,7 +144,8 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Void
 	*/
 	public function commit() {
-	
+		$this->dblink();
+		$this->identity->commit();
 	}
 
 	/**
@@ -153,7 +155,8 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Void
 	*/
 	public function rollback() {
-		
+		$this->dblink();
+		$this->identity->rollback();
 	}
 	
 	/**
