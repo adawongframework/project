@@ -115,7 +115,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 		$this->dblink();
 		return $this->identity->lastInsertId();
 	}
-	
+
 	/**
 	* 返回影响的行数
 	*+--------------
@@ -214,5 +214,6 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	*/
 	public function __destruct() {
 		$this->identity = NULL;
+		$this->resource = NULL;
 	}
 }
