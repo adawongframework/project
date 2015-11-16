@@ -75,5 +75,7 @@ class Controller_Welcome extends Controller {
 	public function action_database() {
 		$db = Database::factory('backup');
 		var_dump($db->select("select * from test")->fetchAll());
+		var_dump($db->select("select * from test")->fetchRow());
+		var_dump($db->select("select * from test")->fetchOne());
 	}
 }

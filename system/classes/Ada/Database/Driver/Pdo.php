@@ -21,11 +21,17 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	private $identity;
 
 	/**
-	* 查询资源句柄
+	* 查询结果资源句柄
 	* @var Resource
 	*/
 	private $resource;
-
+	
+	/**
+	* 构造函数
+	*+--------
+	* @param Array $config 数据库配置项信息
+	* @return Void
+	*/
 	public function __construct($config) {
 		if (!extension_loaded('pdo') || !extension_loaded('pdo_mysql')) {
 			throw new Ada_Exception('Pdo Or Pdo_mysql Expansion is not enabled');
@@ -41,6 +47,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	*/
 	public function select($sql) {
 		$this->query($sql);
+		return new Ada_Database_Driver_Pdo_Result($this->resource);
 	}
 	
 	/**
@@ -135,15 +142,41 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	*/
 	private function query($sql) {
 		$this->dblink();
+		if(($this->resource = $this->identity->query($sql)) == FALSE) {
+			$this->error();	
+		}
+		return TRUE;
+	}
+	
+	/**
+	* 抛出异常信息
+	*+------------
+	* @param Void
+	* @return Void
+	*/
+	private function error() {
+		if (is_object($this->identity)) {
+			$error = $this->identity->errorinfo();
+			if (isset($error[2])) {
+				throw new Ada_Exception($error[2]);
+			}
+		}
 	}
 	
 	/**
 	* 连接数据库
 	*+----------
 	* @param Void
-	* @return Void
+	* @return Boolean
 	*/
 	private function dblink() {
-		echo time();
+		if (!is_object($this->identity)) {
+			try {
+				@$this->identity = new Pdo('mysql:host='.$this->config['hostname'].';dbname='.$this->config['database'],$this->config['username'], $this->config['password']);
+			} catch (PDOException $e) {
+				throw new Ada_Exception($e->getMessage());
+			}
+		}
+		return TRUE;
 	}
 }
