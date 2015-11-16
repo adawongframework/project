@@ -25,6 +25,12 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @var Resource
 	*/
 	private $resource;
+
+	/**
+	* 影响行数
+	* @var Int
+	*/
+	private $affect = 0;
 	
 	/**
 	* 构造函数
@@ -58,7 +64,12 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Boolean
 	*/
 	public function insert($table, $params) {
-	
+		$this->dblink();
+		if (($this->affect = $this->identity->exec(Ada_Database_Query::insertString($table, $params))) === FALSE) {
+			$this->error();
+			return	FALSE;
+		}
+		return TRUE;
 	}
 	
 	/**
@@ -70,7 +81,12 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Boolean
 	*/
 	public function update($table, $params) {
-	
+		$this->dblink();
+		if (($this->affect = $this->identity->exec(Ada_Database_Query::updateString($table, $params))) === FALSE) {
+			$this->error();
+			return	FALSE;
+		}
+		return TRUE;
 	}
 
 	/**
@@ -81,7 +97,12 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Boolean
 	*/
 	public function delete($table, $where=NULL) {
-	
+		$this->dblink();
+		if (($this->affect = $this->identity->exec(Ada_Database_Query::deleteString($table, $where))) === FALSE) {
+			$this->error();
+			return	FALSE;
+		}
+		return TRUE;
 	}
 
 	/**
@@ -91,7 +112,8 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Void
 	*/
 	public function lastId() {
-	
+		$this->dblink();
+		return $this->identity->lastInsertId();
 	}
 	
 	/**
@@ -101,7 +123,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	* @return Void
 	*/
 	public function affect() {
-		
+		return $this->affect;
 	}
 	
 	/**
@@ -165,7 +187,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	
 	/**
 	* 连接数据库
-	*+----------
+	*+---------------
 	* @param Void
 	* @return Boolean
 	*/
@@ -178,5 +200,16 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 			}
 		}
 		return TRUE;
+	}
+	
+	/**
+	* 析构函数
+	*+------------
+	* 释放资源
+	* @param Void
+	* @return Void
+	*/
+	public function __destruct() {
+		$this->identity = NULL;
 	}
 }
