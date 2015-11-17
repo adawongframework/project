@@ -24,7 +24,19 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	* 查询结果句柄
 	* @var Resource
 	*/
-	protected $resource;
+	private $resource;
+
+	/**
+	* 设置debug模式
+	* @var Boolean
+	*/
+	private $debug = FALSE;
+	
+	/**
+	* 保存错误信息
+	* @var String
+	*/
+	private $error = '';
 
 	/**
 	* 构造方法
@@ -32,7 +44,11 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	* @param Array $config 数据库配置
 	*/
 	public function __construct($config) {
+		if (!extension_loaded('mysqli')) {
+			throw new Ada_Exception('Mysqli Expansion is not enabled');
+		}
 		$this->config = $config;
+		$this->debug = $config['debug'];
 	}
 	
 	/**
@@ -42,9 +58,6 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	* @return Ada_Database_Driver_Mysqli_Result
 	*/
 	public function select($sql) {
-		if (!extension_loaded('mysqli')) {
-			throw new Ada_Exception('Mysqli Expansion is not enabled');
-		}
 		$this->query($sql);
 		return new Ada_Database_Driver_Mysqli_Result($this->resource);
 	}
@@ -137,6 +150,16 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	*/
 	public function affect() {
 		return mysqli_affected_rows($this->identity);
+	}	
+	
+	/**
+	* 获取错误信息
+	*+--------------
+	* @param Void
+	* @return String
+	*/
+	public function error() {
+		return $this->error;	
 	}
 
 	/**
@@ -148,6 +171,7 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	private function query($sql) {
 		$this->dblink();
 		$this->choose();
+		mysqli_query($this->identity, "SET NAMES '{$this->config['charset']}'");
 		if (($this->resource = mysqli_query($this->identity, $sql)) == FALSE) {
 			throw new Ada_Exception(mysqli_error($this->identity));
 		}
@@ -178,16 +202,32 @@ class Ada_Database_Driver_Mysqli extends  Ada_Database_Driver {
 	*/
 	private function choose() {
 		if(!(mysqli_select_db($this->identity, $this->config['database']))) {
-			throw new Ada_Exception(mysqli_error($this->identity), mysqli_errno($this->identity));
+			$this->debug();
 		}
 		return TRUE;
 	}
 	
 	/**
+	* 设置或者捕获错误信息
+	*+--------------------
+	* @param Void
+	* @return Void
+	*/
+	private function debug() {
+		if (is_object($this->identity)) {
+			if ($this->debug) {
+				throw new Ada_Exception(mysqli_error($this->identity), mysqli_errno($this->identity));	
+			} else {
+				$this->error = mysqli_error($this->identity);
+			}
+		}
+	}
+	
+	/**
 	* 析构函数
-	*+--------
+	*+------------
 	* 释放资源
-	*+--------
+	*+------------
 	* @param Void
 	* @return Void
 	*/

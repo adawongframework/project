@@ -24,7 +24,19 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* 查询结果句柄
 	* @var Resource
 	*/
-	protected $resource;
+	private $resource;
+
+	/**
+	* 设置debug模式
+	* @var Boolean
+	*/
+	private $debug = FALSE;
+
+	/**
+	* 保存错误信息
+	* @var String
+	*/
+	private $error = '';
 	
 	/**
 	* 构造函数
@@ -36,6 +48,7 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 			throw new Ada_Exception('Mysql Expansion is not enabled');
 		}
 		$this->config = $config;
+		$this->debug = $config['debug'];
 	}
  
 	/**
@@ -136,6 +149,16 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	public function commit() {
 		return $this->query("COMMIT");
 	}
+
+	/**
+	* 获取错误信息
+	*+---------------
+	* @param Void
+	* @return String
+	*/
+	public function error() {
+		return $this->error;
+	}
 	
 	/**
 	* 连接数据库
@@ -148,9 +171,9 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 			return TRUE;
 		}
 		if(!$this->identity = @mysql_connect($this->config['hostname'], $this->config['username'], $this->config['password'])) {
-			$this->error();
+			$this->debug();
+			return FALSE;
 		}
-		$this->query("SET NAMES {$this->config['charset']}");
 		return TRUE;
 	}
 
@@ -162,7 +185,8 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	*/
 	private function choose() {
 		if(!mysql_select_db($this->config['database'])) {
-			$this->error();
+			$this->debug();
+			return FALSE;
 		}
 		return TRUE;
 	}
@@ -174,22 +198,29 @@ class Ada_Database_Driver_Mysql extends Ada_Database_Driver {
 	* @return Boolean
 	*/
 	private function query($sql) {
-		$this->dblink();
-		$this->choose();
-		if(($this->resource = mysql_query($sql, $this->identity)) == FALSE) {
-			$this->error();
+		if($this->dblink() && $this->choose()) {
+			mysql_query("SET NAMES {$this->config['charset']}", $this->identity); //set charset
+			if($this->resource = mysql_query($sql, $this->identity)) {
+				return TRUE;
+			}
+			$this->debug();
 		}
-		return TRUE;
+		return FALSE;
 	}
 	
 	/**
-	* 捕获异常信息
-	*+------------
+	* 设置或者捕获错误信息
+	*+--------------------
 	* @param Void
-	* @return Void
+	* @return Boolean
 	*/
-	private function error() {
-		throw new Ada_Exception(mysql_error(), mysql_errno());
+	private function debug() {
+		if ($this->debug) {
+			throw new Ada_Exception(mysql_error(), mysql_errno());
+		} else {
+			$this->error = mysql_error();
+		}
+		return TRUE;
 	}
 
 	/**
