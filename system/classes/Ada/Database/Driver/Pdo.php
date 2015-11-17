@@ -1,7 +1,7 @@
-<?php
+<?php if (!defined('ADAPATH')) die ('Access failure');
 /**
 * Pdo扩展驱动实现类
-*+--------------------------
+*+-----------------------
 * @package	Core
 * @category	Base
 * @author	zjie 2014/01/05
@@ -27,10 +27,22 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	private $resource;
 
 	/**
-	* 影响行数
+	* 保存影响的行数
 	* @var Int
 	*/
 	private $affect = 0;
+
+	/**
+	* 是否开启debug模式
+	* @var Boolean
+	*/
+	private $debug = FALSE;
+
+	/**
+	* 保存上次错误信息
+	* @var String
+	*/
+	private $error = '';
 	
 	/**
 	* 构造函数
@@ -43,16 +55,21 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 			throw new Ada_Exception('Pdo Or Pdo_mysql Expansion is not enabled');
 		}
 		$this->config = $config;
+		$this->debug = $config['debug'];
 	}
 	
 	/**
 	* 执行一条查询语句
 	*+-----------------------------------------
 	* @param String $sql
-	* @return Ada_Database_Driver_Mysqli_Result
+	* @return Ada_Database_Driver_Pdo_Result
 	*/
 	public function select($sql) {
-		$this->query($sql);
+		$this->dblink();
+		if(($this->resource = $this->identity->query($sql)) == FALSE) {
+			$this->debug();
+			return FALSE;
+		}
 		return new Ada_Database_Driver_Pdo_Result($this->resource);
 	}
 	
@@ -66,7 +83,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	public function insert($table, $params) {
 		$this->dblink();
 		if (($this->affect = $this->identity->exec(Ada_Database_Query::insertString($table, $params))) === FALSE) {
-			$this->error();
+			$this->debug();
 			return	FALSE;
 		}
 		return TRUE;
@@ -83,7 +100,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	public function update($table, $params) {
 		$this->dblink();
 		if (($this->affect = $this->identity->exec(Ada_Database_Query::updateString($table, $params))) === FALSE) {
-			$this->error();
+			$this->debug();
 			return	FALSE;
 		}
 		return TRUE;
@@ -99,7 +116,7 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 	public function delete($table, $where=NULL) {
 		$this->dblink();
 		if (($this->affect = $this->identity->exec(Ada_Database_Query::deleteString($table, $where))) === FALSE) {
-			$this->error();
+			$this->debug();
 			return	FALSE;
 		}
 		return TRUE;
@@ -158,34 +175,15 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 		$this->dblink();
 		$this->identity->rollback();
 	}
-	
+
 	/**
-	* 执行一条sql语句
-	*+------------------
-	* @param String $sql
-	* @return Boolean
-	*/
-	private function query($sql) {
-		$this->dblink();
-		if(($this->resource = $this->identity->query($sql)) == FALSE) {
-			$this->error();	
-		}
-		return TRUE;
-	}
-	
-	/**
-	* 抛出异常信息
+	* 获取错误信息
 	*+------------
 	* @param Void
 	* @return Void
 	*/
-	private function error() {
-		if (is_object($this->identity)) {
-			$error = $this->identity->errorinfo();
-			if (isset($error[2])) {
-				throw new Ada_Exception($error[2]);
-			}
-		}
+	public	function error() {
+		return $this->error;
 	}
 	
 	/**
@@ -200,6 +198,27 @@ class Ada_Database_Driver_Pdo extends Ada_Database_Driver {
 				@$this->identity = new Pdo('mysql:host='.$this->config['hostname'].';dbname='.$this->config['database'],$this->config['username'], $this->config['password']);
 			} catch (PDOException $e) {
 				throw new Ada_Exception($e->getMessage());
+			}
+			$this->identity->query("SET NAMES '{$this->config['charset']}'"); // set charset
+		}
+		return TRUE;
+	}
+
+	/**
+	* 设置错误信息
+	*+--------------
+	* @param Void
+	* @retrun Bolean
+	*/
+	private function debug() {
+		if (is_object($this->identity)) {
+			$error = $this->identity->errorInfo();
+			if (isset($error[2])) {
+				if ($this->debug) {
+					throw new Ada_Exception($error[2]);
+				} else {
+					$this->error = $error[2];
+				}
 			}
 		}
 		return TRUE;

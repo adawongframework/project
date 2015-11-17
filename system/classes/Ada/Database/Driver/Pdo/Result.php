@@ -20,10 +20,9 @@ class Ada_Database_Driver_Pdo_Result extends Ada_Database_Result {
 	* @param Resource $resource
 	*/
 	public function __construct(&$object) {
-		if (!($object InstanceOf PDOStatement)) {
-			throw new Ada_Exception('Not PDOStatement Object');
-		}
-		$this->object = $object;
+		if ($object InstanceOf PDOStatement) {
+			$this->object = $object;
+		}	
 	}
 	
 	/**
