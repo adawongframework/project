@@ -83,7 +83,10 @@ abstract class Autoload extends Ada_Wong {
 			$file['name'] = ucfirst($class);
 		} else if (preg_match(self::$pattern['filepath'], $class, $matchs)) {
 			$file['name'] = ucfirst($matchs['filename']);
-			$file['path'] = ucfirst($matchs['filepath']);
+			$path = explode('_', $matchs['filepath']);
+			foreach ($path as $p) {
+				$file['path'] = ucfirst($p).'_';
+			}
 		} else {
 			return FALSE;
 		}
