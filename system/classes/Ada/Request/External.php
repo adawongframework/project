@@ -70,7 +70,7 @@ class Ada_Request_external {
 	private function handle() {
 		if (!function_exists('curl_init')) {
 			$this->chinit();
-		} else if (!function_exists('fsockopen')) {
+		} else if (function_exists('fsockopen')) {
 			$this->socket();
 		} else if (ini_get('allow_url_fopen')) {
 			$this->stream();
