@@ -84,8 +84,9 @@ abstract class Autoload extends Ada_Wong {
 		} else if (preg_match(self::$pattern['filepath'], $class, $matchs)) {
 			$file['name'] = ucfirst($matchs['filename']);
 			$path = explode('_', $matchs['filepath']);
+			$file['path'] = '';
 			foreach ($path as $p) {
-				$file['path'] = ucfirst($p).'_';
+				$file['path'] .= ucfirst($p).'_';
 			}
 		} else {
 			return FALSE;
@@ -93,4 +94,3 @@ abstract class Autoload extends Ada_Wong {
 		return $file;
 	}
 }
-
