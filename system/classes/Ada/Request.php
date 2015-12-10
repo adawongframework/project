@@ -183,7 +183,7 @@ abstract class Ada_Request {
 	* @return Boolean
 	*/
 	public function isajax() {
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			return TRUE;
 		}
 		return FALSE;
